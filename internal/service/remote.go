@@ -36,7 +36,7 @@ func NewRemoteSteps(gateway RemoteGateway) *RemoteSteps {
 }
 
 func (r *RemoteSteps) Run(ctx context.Context, stepID string) (domain.StepResult, error) {
-	task := RemoteTask{ID: stepID, Context: context.Background()}
+	task := RemoteTask{ID: stepID, Context: ctx}
 	detail, err := r.gateway.Execute(task.Context, task.ID)
 	if err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
